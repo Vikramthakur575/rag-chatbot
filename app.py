@@ -1,4 +1,4 @@
-# app.py
+
 import os
 import pickle
 import streamlit as st
@@ -12,9 +12,7 @@ from transformers import pipeline, AutoModelForSeq2SeqLM, AutoTokenizer
 
 st.set_page_config(page_title="RAG Chatbot", page_icon="🤖", layout="wide")
 
-# --------------------------
-# Sidebar settings
-# --------------------------
+
 st.sidebar.title("⚙️ Settings")
 
 model_choice = st.sidebar.selectbox(
@@ -27,9 +25,7 @@ index_file = "vectorstore.pkl"
 st.title("📄 RAG Chatbot")
 st.write("Upload documents and ask questions in a conversational way!")
 
-# --------------------------
-# Upload documents
-# --------------------------
+
 uploaded_files = st.file_uploader(
     "Upload TXT or PDF files", type=["txt", "pdf"], accept_multiple_files=True
 )
@@ -46,9 +42,7 @@ if uploaded_files:
             text = file.read().decode("utf-8")
             docs.append(text)
 
-# --------------------------
-# Process / Load Vectorstore
-# --------------------------
+
 if docs:
     with st.spinner("🔍 Processing documents..."):
         text_splitter = RecursiveCharacterTextSplitter(
@@ -71,9 +65,6 @@ elif os.path.exists(index_file):
 else:
     vectorstore = None
 
-# --------------------------
-# Initialize LLM
-# --------------------------
 @st.cache_resource
 def load_model(model_name):
     tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -88,9 +79,7 @@ if vectorstore:
         llm=llm, chain_type="stuff", retriever=vectorstore.as_retriever(search_kwargs={"k": 3})
     )
 
-    # --------------------------
-    # Chat Interface
-    # --------------------------
+    
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
@@ -105,7 +94,7 @@ if vectorstore:
             answer = qa_chain.run(user_input)
             st.markdown("**Answer:** " + answer)
 
-        # Save chat history
+        
         st.session_state.chat_history.append(("user", user_input))
         st.session_state.chat_history.append(("assistant", answer))
 
