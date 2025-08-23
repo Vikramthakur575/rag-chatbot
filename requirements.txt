@@ -1,31 +1,8 @@
-python-dotenv>=1.0.1
-streamlit>=1.36.0
-langchain>=0.2.10
-langchain-openai>=0.1.17
-langchain-community>=0.2.10
-faiss-cpu>=1.8.0.post1
-pypdf>=4.2.0
-tiktoken>=0.7.0
-pandas>=2.2.2
-numpy>=1.26.4 
-# Core LLM + LangChain
-langchain
-langchain-community
-langchain-openai
-
-# Vector database
-faiss-cpu
-
-# Data loaders
-pypdf
-pandas
-
-# Environment + Config
-python-dotenv
-
-# App / Deployment
 streamlit
-
-# Optional but useful
-tiktoken
+langchain
+faiss-cpu
+PyPDF2
+transformers
+sentence-transformers
+torch
 
